@@ -19,6 +19,96 @@ namespace Buffteks4
      class Program
     {
         public static void Main(string[] args)
+        {
+            SeedDataBase();
+
+  Console.WriteLine("Welcome to the Bufteks Datatbase");
+ bool validChoice;
+ 
+ do // inner do...while loop is to keep looping until the user picks a valid menu selection
+            {            //Menu Stuff
+             validChoice = true;
+
+              
+
+                Console.WriteLine("--------------------------------------------");
+
+                Console.WriteLine("Please select a menu option below:");
+                Console.WriteLine("--------------------------------------------");
+
+                Console.WriteLine( "Commands:");
+                Console.WriteLine("l) Full List list"); 
+                //Console.WriteLine("t) Students and Teams list"); 
+                Console.WriteLine("a) Who are the 18-20 year olds"); 
+                Console.WriteLine("m) List of all the students in alpha order by"); //group by method in ascending order
+                Console.WriteLine("g) lets group the students according to age"); 
+                Console.WriteLine("e) exit)");
+                Console.WriteLine("--------------------------------------------");
+
+              try
+                {
+                Console.Write("> ");
+                var command = Console.ReadLine();
+                switch (command)
+                {
+
+                    
+                    case "l":
+                        Commands.ListAll();
+                        validChoice = false;
+                        break;
+
+                    
+                    case "a":
+                        Commands.YoungKids();
+                    validChoice = false;
+                        break;
+
+                    //case "t":
+                      //  Commands.StudentsPlusTeams();
+                        //break;
+
+                    case "g":
+                    Commands.GroupStudents();
+                    validChoice = false;
+                    break;
+                    
+                    case "o":
+                    Commands.GroupInOrder();
+                    validChoice = false;
+                    break;
+
+                    case "m":
+                    Commands.OrderStudentsByMethod();
+                    validChoice = false;
+                    break;
+                         
+                    case "e":
+                        return;
+                    default: 
+                        validChoice = false;
+                        Console.WriteLine("Unknown command.");
+                        break;
+                }
+
+                }
+                catch (FormatException)
+                {
+                    // This try...catch block catches the FormatException that Convert.ToInt32 will throw 
+                    // if the user inputs text or something that cannot be converted to an integer.
+                    validChoice = false;
+                    Console.WriteLine("Invalid choice. Please try again.");
+                }
+            } while (validChoice == false); // Inner loop ends when validChoice is true
+
+
+            //end menu stuff
+            
+
+        }
+
+
+        public static void SeedDataBase()
         {   
             using(var db = new AppDbContext())
             {
@@ -318,60 +408,7 @@ namespace Buffteks4
 
 
            
-          Console.WriteLine("Welcome to the Bufteks Datatbase");
-
-                Console.WriteLine("--------------------------------------------");
-
-                Console.WriteLine("Please select a menu option below:");
-                Console.WriteLine("--------------------------------------------");
-
-                Console.WriteLine( "Commands:");
-                Console.WriteLine("l) Full List list"); 
-                //Console.WriteLine("t) Students and Teams list"); 
-                Console.WriteLine("a) Who are the 18-20 year olds"); 
-                Console.WriteLine("m) List of all the students in alpha order by"); //group by method in ascending order
-                Console.WriteLine("g) lets group the students according to age"); 
-                Console.WriteLine("e) exit)");
-                Console.WriteLine("--------------------------------------------");
-
-            {
-                Console.Write("> ");
-                var command = Console.ReadLine();
-                switch (command)
-                {
-
-                    
-                    case "l":
-                        Commands.ListAll();
-                        break;
-
-                    
-                    case "a":
-                        Commands.YoungKids();
-                        break;
-
-                    //case "t":
-                      //  Commands.StudentsPlusTeams();
-                        //break;
-
-                    case "g":
-                    Commands.GroupStudents();
-                    break;
-                    
-                    case "o":
-                    Commands.GroupInOrder();
-                    break;
-
-                    case "m":
-                    Commands.OrderStudentsByMethod();
-                    break;
-                         
-                    case "e":
-                        return;
-                    default: 
-                        Console.WriteLine("Unknown command.");
-                        break;
-                }
+      
 
             }
 
@@ -379,6 +416,6 @@ namespace Buffteks4
         }
 
 
-    }
+    
 }
 

@@ -159,6 +159,41 @@ namespace Buffteks4
                 }
          }
 
+//join method syntax
+
+public static void JoinSyntax()
+
+{
+    using(var db = new AppDbContext())
+
+    {
+        var innerJoin = db.Students.Join(   //outer sequence
+                                        db.Team,          //inner sequence
+                                         s => s.TeamId,  //outer key
+                                         t => t.TeamId,  //inner key
+                                         (s, t) => new   //projection
+                                            {
+                                                LastName = s.LastName,
+                                                TeamName = t.TeamName,
+                                                TeamDescription = t.TeamDescription,   
+                                            }   
+                                        );
+
+        var innerJoinOrdered = innerJoin.OrderBy(p => p.LastName).ThenBy(p => p.TeamName);                                
+
+        foreach(var s in innerJoin)
+            {
+                Console.WriteLine($"{s.LastName} is on {s.TeamName} Team");
+            }
+    }
+
+}
+
+
+
+//end join method syntax
+
+
 //FIND BEGINS
 
  public static List<Student> FindInStudents(string term)
@@ -172,7 +207,7 @@ namespace Buffteks4
                 var findStudents = db.Students
                     .Select(s => new{
                         s.FirstName,
-                        //AuthorName = b.AuthorsLink.Select(q => q.Author.Name).First(),
+                        //TeamName = s.students.Select(t => t.Team.TeamName).First(),
                         //AuthorUrl = b.AuthorsLink.Select(q => q.Author.WebUrl).First(),
                         s.LastName,
                         s.Age, 

@@ -43,6 +43,8 @@ namespace Buffteks4
                 Console.WriteLine("a) Who are the 18-20 year olds"); 
                 Console.WriteLine("m) List of all the students in ascending alpha order by last name"); //group by method in ascending order
                 Console.WriteLine("n) List of all the students in descending alpha order  by last name"); //group by method in ascending order
+                
+                Console.WriteLine("j) Join syntax demo");
                 Console.WriteLine("g) lets group the students according to age"); 
                 Console.WriteLine("e) exit)");
                 Console.WriteLine("--------------------------------------------");
@@ -93,6 +95,11 @@ namespace Buffteks4
                     //case "t":
                       //  Commands.StudentsPlusTeams();
                         //break;
+                    case "j":
+                    Commands.JoinSyntax();
+                    validChoice = false;
+                    break;
+
 
                     case "g":
                     Commands.GroupStudents();

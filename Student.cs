@@ -25,9 +25,9 @@ namespace Buffteks4
 
         public int Age { get; set; }
 
+        public Team Team { get; set; }
         
         public int TeamId { get; set; }
-        public Team Team { get; set; }
         public string Role { get; set; }
         
 

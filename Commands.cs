@@ -25,6 +25,8 @@ namespace Buffteks4
              }
          }
          
+
+
  
 
         public static void ListAll()
@@ -157,6 +159,58 @@ namespace Buffteks4
                 }
          }
 
+//FIND BEGINS
+
+ public static List<Student> FindInStudents(string term)
+        {
+
+            List<Student> students = new List<Student>();
+
+            using (var db = new AppDbContext())
+            {
+                //this will require a JOIN to bring the two tables together
+                var findStudents = db.Students
+                    .Select(s => new{
+                        s.FirstName,
+                        //AuthorName = b.AuthorsLink.Select(q => q.Author.Name).First(),
+                        //AuthorUrl = b.AuthorsLink.Select(q => q.Author.WebUrl).First(),
+                        s.LastName,
+                        s.Age, 
+                        s.Email, 
+                        s.Role
+                        
+                        
+                    })
+                    .Where(s => s.FirstName.Contains(term) || s.LastName.Contains(term))
+                    .ToList();
+
+                foreach(var item in findStudents)
+                {
+                    students.Add(new Student{
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                       Age = item.Age,
+                       Email = item.Email,
+                    Role = item.Role
+            
+                    });
+                }                
+            }
+
+            //if there are results, return the list
+            return students.Count > 0 ? students : null;
+}
+
+
+
+
+
+
+
+
+
+//FIND ENDS
+
 //Start Method - Group in Order
 
 
@@ -194,7 +248,7 @@ namespace Buffteks4
                     Console.WriteLine($"Age Group: {ageGroup.Key}");
                     foreach(Student s in ageGroup)
                     {
-                    Console.WriteLine("--" + s.FirstName + s.LastName);
+                    Console.WriteLine("--" + s.FirstName + " " + s.LastName);
 
                     }
                 }
@@ -205,6 +259,25 @@ namespace Buffteks4
 
 //Start Method - Group by Method Ascending
 
+         public static void NameDescending()
+         {
+            using(var db = new AppDbContext())
+             {
+                 var descendingStudent = from s in db.Students
+                 orderby s.LastName descending
+                 select s;
+
+                foreach(Student s in descendingStudent)
+                    {
+                    Console.WriteLine(s.FirstName + " " + s.LastName);
+
+                    }
+
+
+
+             }
+         }
+         
 
          public static void OrderStudentsByMethod()
          {

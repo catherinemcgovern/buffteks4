@@ -38,9 +38,11 @@ namespace Buffteks4
 
                 Console.WriteLine( "Commands:");
                 Console.WriteLine("l) Full List list"); 
+                Console.WriteLine("f) find something");
                 //Console.WriteLine("t) Students and Teams list"); 
                 Console.WriteLine("a) Who are the 18-20 year olds"); 
-                Console.WriteLine("m) List of all the students in alpha order by"); //group by method in ascending order
+                Console.WriteLine("m) List of all the students in ascending alpha order by last name"); //group by method in ascending order
+                Console.WriteLine("n) List of all the students in descending alpha order  by last name"); //group by method in ascending order
                 Console.WriteLine("g) lets group the students according to age"); 
                 Console.WriteLine("e) exit)");
                 Console.WriteLine("--------------------------------------------");
@@ -63,6 +65,30 @@ namespace Buffteks4
                         Commands.YoungKids();
                     validChoice = false;
                         break;
+                        
+                      //FIND CASE BEGINS  
+                    case "f":
+                    Console.Write("Please enter a name ");
+                    var term = Console.ReadLine();
+                    List<Student> students = new List<Student>();
+                    students = Commands.FindInStudents(term);
+                    if(students != null){
+                        Console.WriteLine("found: ");
+                        foreach(Student student in students)
+                        {
+                            Console.WriteLine($"{student.FirstName} {student.LastName}");
+                            //Console.WriteLine($"Age: {student.Age}");
+                           // Console.WriteLine($"Rank: {student.Role}");
+                            //Console.WriteLine($"Email Address: {student.Email}");
+                            
+                        }
+                    }else{
+                        Console.WriteLine("nothing found");
+                    }
+                    validChoice = false; //brings up the original menu
+                    break; 
+//FIND CASE ENDS
+
 
                     //case "t":
                       //  Commands.StudentsPlusTeams();
@@ -80,6 +106,11 @@ namespace Buffteks4
 
                     case "m":
                     Commands.OrderStudentsByMethod();
+                    validChoice = false;
+                    break;
+
+                    case "n":
+                    Commands.NameDescending();
                     validChoice = false;
                     break;
                          
@@ -127,9 +158,9 @@ namespace Buffteks4
                             {
                                 Id = 1,
                                 FirstName = "Marvin",
-                                LastName = "Moore",
+                                LastName = "Dylan",
                                 PhoneNumber = "123-555-1234",
-                                Email = "MarvinMoore@test.com",
+                                Email = "MarvinDylan@test.com",
                                 Role = "Senior",
                                 TeamId = 1,
                                 Age = 23,

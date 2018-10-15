@@ -37,14 +37,14 @@ namespace Buffteks4
                 Console.WriteLine("--------------------------------------------");
 
                 Console.WriteLine( "Commands:");
-                Console.WriteLine("l) Full List list"); 
-                Console.WriteLine("f) find something");
+                Console.WriteLine("l) Full List of Everyone!"); 
+                Console.WriteLine("f) Find something (simple find; no join : (");
                 //Console.WriteLine("t) Students and Teams list"); 
-                Console.WriteLine("a) Who are the 18-20 year olds"); 
+                Console.WriteLine("a) Who are the 18-20 year olds in the group"); 
                 Console.WriteLine("m) List of all the students in ascending alpha order by last name"); //group by method in ascending order
                 Console.WriteLine("n) List of all the students in descending alpha order  by last name"); //group by method in ascending order
                 
-                Console.WriteLine("j) Join syntax demo");
+                Console.WriteLine("j) Join syntax demo of everyone and their team");
                 Console.WriteLine("g) lets group the students according to age"); 
                 Console.WriteLine("e) exit)");
                 Console.WriteLine("--------------------------------------------");
@@ -76,9 +76,9 @@ namespace Buffteks4
                     students = Commands.FindInStudents(term);
                     if(students != null){
                         Console.WriteLine("found: ");
-                        foreach(Student student in students)
+                        foreach(Student s in students)
                         {
-                            Console.WriteLine($"{student.FirstName} {student.LastName}");
+                            Console.WriteLine($"{s.FirstName} {s.LastName}");
                             //Console.WriteLine($"Age: {student.Age}");
                            // Console.WriteLine($"Rank: {student.Role}");
                             //Console.WriteLine($"Email Address: {student.Email}");

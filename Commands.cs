@@ -193,6 +193,88 @@ public static void JoinSyntax()
 
 //end join method syntax
 
+//Comprehensive Find starts
+
+
+public static List<Student> CompFindInStudents(string term)
+        
+  //setting up join-------------------------------------------
+/*
+ 
+        
+  */      
+        
+        {
+
+            List<Student> students = new List<Student>();
+            
+             using (var db = new AppDbContext())
+            {
+
+                var innerJoin = db.Students.Join(   //outer sequence
+                                        db.Team,          //inner sequence
+                                         s => s.TeamId,  //outer key
+                                         t => t.TeamId,  //inner key
+                                         (s, t) => new   //projection
+                                            {
+                                                FirstName = s.FirstName,
+                                                LastName = s.LastName,
+                                                TeamName = t.TeamName,
+                                                TeamDescription = t.TeamDescription,   
+                                            }   
+                                        );
+
+        var innerJoinOrdered = innerJoin.OrderBy(s => s.LastName).ThenBy(s => s.TeamName).Select(s => new{
+                        s.FirstName,
+                        s.LastName,
+                        s.TeamName,
+                        s.TeamDescription,
+                        
+                    }).Where(s => s.FirstName.Contains(term) || s.LastName.Contains(term))
+                    .ToList();
+
+  foreach(var s in innerJoin)
+                {
+                    students.Add(new Student{
+                        FirstName = s.FirstName,
+                        LastName = s.LastName,
+                        //TeamName = item.TeamName
+            
+                    });
+                      
+            }
+
+                    
+                     } return students.Count > 0 ? students : null;
+            }
+            //{
+              //  Console.WriteLine($"{s.FirstName} {s.LastName} is on this team: {s.TeamName}; with this description: ");
+            
+
+      /*          foreach(var item in s.students)
+                {
+                    students.Add(new Student{
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                       Age = item.Age,
+                       Email = item.Email,
+                       Role = item.Role,
+                       TeamName = item.TeamName,
+            
+                    });*/
+        
+
+            //if there are results, return the list
+            
+
+
+
+
+
+
+
+
+//Comprehensive find ends
 
 //FIND BEGINS
 
@@ -205,6 +287,7 @@ public static void JoinSyntax()
             {
                 //this will require a JOIN to bring the two tables together
                 var findStudents = db.Students
+                
                     .Select(s => new{
                         s.FirstName,
                         //TeamName = s.students.Select(t => t.Team.TeamName).First(),
